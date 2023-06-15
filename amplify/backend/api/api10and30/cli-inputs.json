@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "paths": {
+    "/user": {
+      "name": "/user",
+      "lambdaFunction": "10and30Lambda",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update"
+        ]
+      }
+    }
+  }
+}

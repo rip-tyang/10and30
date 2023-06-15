@@ -1,28 +1,18 @@
 {
   "api": {
-    "10and30": {
+    "api10and30": {
       "dependsOn": [
         {
           "attributes": [
-            "UserPoolId"
+            "Name",
+            "Arn"
           ],
-          "category": "auth",
-          "resourceName": "10and305d2d6ad9"
+          "category": "function",
+          "resourceName": "10and30Lambda"
         }
       ],
-      "output": {
-        "authConfig": {
-          "additionalAuthenticationProviders": [],
-          "defaultAuthentication": {
-            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-            "userPoolConfig": {
-              "userPoolId": "auth10and305d2d6ad9"
-            }
-          }
-        }
-      },
       "providerPlugin": "awscloudformation",
-      "service": "AppSync"
+      "service": "API Gateway"
     }
   },
   "auth": {
@@ -55,6 +45,24 @@
       "service": "Cognito"
     }
   },
+  "function": {
+    "10and30Lambda": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "10and30DB"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
   "hosting": {
     "amplifyhosting": {
       "lastPushTimeStamp": "2023-06-07T03:46:23.484Z",
@@ -63,6 +71,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_10and30Lambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "10and30Lambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_10and30Lambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "10and30Lambda"
+        }
+      ]
+    },
     "AMPLIFY_hosting_amplifyhosting_appId": {
       "usedBy": [
         {
@@ -78,6 +102,12 @@
           "resourceName": "amplifyhosting"
         }
       ]
+    }
+  },
+  "storage": {
+    "10and30DB": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
     }
   }
 }

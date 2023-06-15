@@ -9,20 +9,30 @@
       "UnauthRoleName": "amplify-10and30-dev-151038-unauthRole",
       "StackName": "amplify-10and30-dev-151038",
       "StackId": "arn:aws:cloudformation:us-east-1:955532044782:stack/amplify-10and30-dev-151038/53caa2b0-0242-11ee-9a7c-12291ab2588b",
-      "AmplifyAppId": "d3ej0k9eje5ouh"
+      "AmplifyAppId": "d3ej0k9eje5ouh",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-10and30-dev-151038-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
         "10and305d2d6ad9": {}
-      },
-      "api": {
-        "10and30": {}
       },
       "hosting": {
         "amplifyhosting": {
           "appId": "d3ej0k9eje5ouh",
           "type": "cicd"
         }
+      },
+      "function": {
+        "10and30Lambda": {
+          "deploymentBucketName": "amplify-10and30-dev-151038-deployment",
+          "s3Key": "amplify-builds/10and30Lambda-6a6e4a535649366c4b4a-build.zip"
+        }
+      },
+      "api": {
+        "api10and30": {}
+      },
+      "storage": {
+        "10and30DB": {}
       }
     }
   }

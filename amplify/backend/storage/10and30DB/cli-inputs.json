@@ -1,0 +1,14 @@
+{
+  "resourceName": "10and30DB",
+  "tableName": "10and30User",
+  "partitionKey": {
+    "fieldName": "user_id",
+    "fieldType": "string"
+  },
+  "sortKey": {
+    "fieldName": "month",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}
