@@ -3,8 +3,9 @@ import { Amplify, API, Auth, withSSRContext } from 'aws-amplify';
 import Head from 'next/head';
 import awsExports from '@/aws-exports';
 import styles from '../styles/Home.module.css';
-import { dateStr, monthStr } from '@/utils';
+import { monthStr } from '@/utils';
 import { UserData } from '@/models/user_data';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next'
 
 Amplify.configure({ ...awsExports, ssr: true });
 
@@ -13,7 +14,7 @@ interface UserPageProp {
     items: UserData,
 }
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
   const SSR = withSSRContext(context);
   const currMonth = monthStr();
   try {
@@ -55,8 +56,8 @@ export default function Home(props: UserPageProp) {
           <div className={styles.card}>
             <h1>Hello {props.username}</h1>
             { 
-                props.items.highlights.map(highlight => (
-                    (<div>{highlight.highlight}</div>)
+                props.items.highlights.map((highlight, index) => (
+                    (<div key={index}><span>{highlight.date}</span>{highlight.highlight}</div>)
                 )) 
             }
           </div>

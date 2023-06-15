@@ -3,10 +3,11 @@ import { Amplify, API, Auth, withSSRContext } from 'aws-amplify';
 import Head from 'next/head';
 import awsExports from '@/aws-exports';
 import styles from '../styles/Home.module.css';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next'
 
 Amplify.configure({ ...awsExports, ssr: true });
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
   const SSR = withSSRContext(context);
   try {
     const user = await SSR.Auth.currentAuthenticatedUser();
@@ -38,7 +39,7 @@ export default function Home(props = {}) {
             <Authenticator>
               {({ signOut, user }) => (
                 <main>
-                  <h1>Hello {user.username}</h1>
+                  <h1>Hello {user?.username}</h1>
                   <button onClick={signOut}>Sign out</button>
                 </main>
               )}
