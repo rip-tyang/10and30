@@ -1,11 +1,13 @@
 import { Authenticator } from '@aws-amplify/ui-react';
-import { Amplify, API, Auth, withSSRContext } from 'aws-amplify';
+import { APIClass, Amplify, Auth, withSSRContext } from 'aws-amplify';
 import Head from 'next/head';
 import awsExports from '@/aws-exports';
 import styles from '../styles/Home.module.css';
-import { monthStr } from '@/utils';
-import { UserData } from '@/models/user_data';
+import { monthStr } from '@/utils/date';
+import { UserData, isUserDataEmpty, PrimaryKey, getHighlightOrDefault} from '@/models/user_data';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next'
+import { getCurrentUser } from '@/utils/user';
+import { REDIRECT_HOME } from '@/utils/server_side_prop';
 
 Amplify.configure({ ...awsExports, ssr: true });
 
@@ -15,32 +17,27 @@ interface UserPageProp {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-  const SSR = withSSRContext(context);
-  const currMonth = monthStr();
-  try {
-    const user = await SSR.Auth.currentAuthenticatedUser();
-    console.log(user.username);
-    const items = await SSR.API.get('api10and30', `/user/object/${user.username}/${currMonth}`, {}) as UserData;
-    console.log(items);
+    const SSR = withSSRContext(context);
+    const currMonth = monthStr();
+    const user = await getCurrentUser(SSR.Auth);
+
+    if (user === null) {
+        return REDIRECT_HOME;
+    }
+
+    const primary_key = {
+        user_id: user.getUsername(),
+        month: currMonth,
+    } as PrimaryKey;
+
+    const items = await getHighlightOrDefault(SSR.API, primary_key);
 
     return {
       props: {
-        username: user.username,
+        username: user.getUsername(),
         items,
       } as UserPageProp,
     }
-  } catch (err) {
-    if (err === 'The user is not authenticated') {
-        return {
-            redirect: {
-                destination: '/',
-                permanent: false,
-            },
-        };
-    }
-    console.error(err);
-    throw err;
-  } 
 }
 
 export default function Home(props: UserPageProp) {
