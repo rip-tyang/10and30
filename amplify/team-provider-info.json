@@ -26,13 +26,42 @@
         "10and30Lambda": {
           "deploymentBucketName": "amplify-10and30-dev-151038-deployment",
           "s3Key": "amplify-builds/10and30Lambda-6a6e4a535649366c4b4a-build.zip"
-        }
+        },
+        "10and30DB": {}
       },
       "api": {
         "api10and30": {}
       },
       "storage": {
         "10and30DB": {}
+      }
+    }
+  },
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-10and30-prod-230305-authRole",
+      "UnauthRoleArn": "arn:aws:iam::955532044782:role/amplify-10and30-prod-230305-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::955532044782:role/amplify-10and30-prod-230305-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-10and30-prod-230305-deployment",
+      "UnauthRoleName": "amplify-10and30-prod-230305-unauthRole",
+      "StackName": "amplify-10and30-prod-230305",
+      "StackId": "arn:aws:cloudformation:us-east-1:955532044782:stack/amplify-10and30-prod-230305/aa34df60-0d84-11ee-9c18-0a214a9a3baf",
+      "AmplifyAppId": "d3ej0k9eje5ouh"
+    },
+    "categories": {
+      "auth": {
+        "10and305d2d6ad9": {}
+      },
+      "function": {
+        "10and30Lambda": {},
+        "10and30DB": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d3ej0k9eje5ouh",
+          "type": "cicd"
+        }
       }
     }
   }
